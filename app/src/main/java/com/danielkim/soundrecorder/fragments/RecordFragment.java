@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.danielkim.soundrecorder.R;
 import com.danielkim.soundrecorder.RecordingService;
@@ -37,12 +38,14 @@ public class RecordFragment extends Fragment {
     //Recording controls
     private FloatingActionButton mRecordButton = null;
     private Button mPauseButton = null;
+    private ToggleButton mMuteButton = null;
 
     private TextView mRecordingPrompt;
     private int mRecordPromptCount = 0;
 
     private boolean mStartRecording = true;
     private boolean mPauseRecording = true;
+    private boolean mMuteRecording = true;
 
     private Chronometer mChronometer = null;
     long timeWhenPaused = 0; //stores time when user clicks pause button
@@ -98,6 +101,15 @@ public class RecordFragment extends Fragment {
             public void onClick(View v) {
                 onPauseRecord(mPauseRecording);
                 mPauseRecording = !mPauseRecording;
+            }
+        });
+
+        mMuteButton = (ToggleButton) recordView.findViewById(R.id.btnMute);
+        mMuteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onMuteRecord(mMuteRecording);
+                mMuteRecording = !mMuteRecording;
             }
         });
 
@@ -180,5 +192,9 @@ public class RecordFragment extends Fragment {
             mChronometer.setBase(SystemClock.elapsedRealtime() + timeWhenPaused);
             mChronometer.start();
         }
+    }
+
+    private void onMuteRecord(boolean mute) {
+
     }
 }
