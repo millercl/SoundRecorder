@@ -54,4 +54,8 @@
     <string name="pref_about_title">About</string>
     <string name="pref_about_desc">v%s</string>
 
+    <!-- Intents -->
+    <string name="action_mute">MUTE</string>
+    <string name="action_unmute">UNMUTE</string>
+
 </resources>

@@ -68,6 +68,12 @@ public class RecordingService extends Service {
             startRecording();
             return START_STICKY;
         }
+        if (intent.getAction() == getString(R.string.action_mute)) {
+            return START_STICKY;
+        }
+        if (intent.getAction() == getString(R.string.action_unmute)) {
+            return START_STICKY;
+        }
         stopSelf();
         return START_NOT_STICKY;
     }

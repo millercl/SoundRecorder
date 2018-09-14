@@ -169,6 +169,7 @@ public class RecordFragment extends Fragment {
             mChronometer.setBase(SystemClock.elapsedRealtime());
             timeWhenPaused = 0;
             mRecordingPrompt.setText(getString(R.string.record_prompt));
+            onMuteRecord(false);
 
             getActivity().stopService(intent);
             //allow the screen to turn off again once recording is finished
@@ -196,6 +197,14 @@ public class RecordFragment extends Fragment {
     }
 
     private void onMuteRecord(boolean mute) {
-
+        Intent intent = new Intent(getActivity(), RecordingService.class);
+        if (mute) {
+            intent.setAction(getString(R.string.action_mute));
+            getActivity().startService(intent);
+        } else {
+            intent.setAction(getString(R.string.action_unmute));
+            getActivity().startService(intent);
+            mMuteButton.setChecked(false);
+        }
     }
 }
