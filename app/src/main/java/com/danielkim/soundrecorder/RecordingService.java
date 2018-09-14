@@ -7,6 +7,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
 import android.media.MediaRecorder;
 import android.os.Environment;
 import android.os.IBinder;
@@ -35,6 +36,7 @@ public class RecordingService extends Service {
     private String mFilePath = null;
 
     private MediaRecorder mRecorder = null;
+    private AudioManager mManager = null;
 
     private DBHelper mDatabase;
 
@@ -60,6 +62,7 @@ public class RecordingService extends Service {
     public void onCreate() {
         super.onCreate();
         mDatabase = new DBHelper(getApplicationContext());
+        mManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
     }
 
     @Override
@@ -69,9 +72,11 @@ public class RecordingService extends Service {
             return START_STICKY;
         }
         if (intent.getAction() == getString(R.string.action_mute)) {
+            mute();
             return START_STICKY;
         }
         if (intent.getAction() == getString(R.string.action_unmute)) {
+            unmute();
             return START_STICKY;
         }
         stopSelf();
@@ -180,5 +185,13 @@ public class RecordingService extends Service {
                 new Intent[]{new Intent(getApplicationContext(), MainActivity.class)}, 0));
 
         return mBuilder.build();
+    }
+
+    private void mute() {
+        mManager.setMicrophoneMute(true);
+    }
+
+    private void unmute() {
+        mManager.setMicrophoneMute(false);
     }
 }
