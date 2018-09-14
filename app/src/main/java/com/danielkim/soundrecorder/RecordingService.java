@@ -64,8 +64,12 @@ public class RecordingService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        startRecording();
-        return START_STICKY;
+        if (intent.getAction() == Intent.ACTION_MAIN) {
+            startRecording();
+            return START_STICKY;
+        }
+        stopSelf();
+        return START_NOT_STICKY;
     }
 
     @Override

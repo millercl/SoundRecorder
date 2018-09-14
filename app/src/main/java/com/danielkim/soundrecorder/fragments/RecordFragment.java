@@ -121,6 +121,7 @@ public class RecordFragment extends Fragment {
     private void onRecord(boolean start){
 
         Intent intent = new Intent(getActivity(), RecordingService.class);
+        intent.setAction(Intent.ACTION_MAIN);
 
         if (start) {
             // start recording
